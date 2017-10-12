@@ -1,10 +1,13 @@
 module GitLabBuildOutput
+  # rubocop:disable Metrics/ClassLength
   class Application
     attr_reader :raw_args
     attr_reader :args
     attr_reader :option_parser
 
-    Args = Struct.new(:help, :verbose, :version, :private_token, :endpoint)
+    Args = Struct.new(
+      :help, :verbose, :version, :private_token, :endpoint, :loop
+    )
 
     def initialize(raw_args)
       @raw_args = raw_args
@@ -21,16 +24,25 @@ module GitLabBuildOutput
         @option_parser = parse_arguments(raw_args, args)
         exit = handle_arguments(args)
         return if exit
-        outputter.run
+        runner.run
       end
     end
 
     private
 
-    def outputter
-      @outputter ||= Outputter.new(
+    def runner
+      @runner ||=
+        (args.loop ? LoopRunner : SingleRunner).new(job_tracer, outputter, 0.5)
+    end
+
+    def job_tracer
+      @job_tracer ||= JobTracer.new(
         args.endpoint, args.private_token, git_repository
       )
+    end
+
+    def outputter
+      @outputter ||= Outputter.new
     end
 
     def git_repository
@@ -86,8 +98,12 @@ module GitLabBuildOutput
       end
 
       opts.on('-p', '--private_token <private_token>', 'The private token ' \
-        'used to authenticate to GitLab') do |private_token|
-        args.private_token = private_token
+        'used to authenticate to GitLab') do |value|
+        args.private_token = value
+      end
+
+      opts.on('-l', '--[no-]loop', 'Loop until the job is complete') do |value|
+        args.loop = value
       end
 
       opts.on('-v', '--[no-]verbose', 'Show verbose output') do |value|
@@ -131,4 +147,5 @@ module GitLabBuildOutput
       puts option_parser.to_s
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe GitLabBuildOutput::Outputter do
+describe GitLabBuildOutput::JobTracer do
   subject do
-    GitLabBuildOutput::Outputter.new(endpoint, private_token, git_repository)
+    GitLabBuildOutput::JobTracer.new(endpoint, private_token, git_repository)
   end
 
   let(:endpoint) { 'gitlab.com' }
