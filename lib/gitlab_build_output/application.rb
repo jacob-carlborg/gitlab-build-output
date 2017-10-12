@@ -6,7 +6,7 @@ module GitLabBuildOutput
     attr_reader :option_parser
 
     Args = Struct.new(
-      :help, :verbose, :version, :private_token, :endpoint, :loop
+      :help, :verbose, :version, :private_token, :endpoint, :loop, :html
     )
 
     def initialize(raw_args)
@@ -42,7 +42,7 @@ module GitLabBuildOutput
     end
 
     def outputter
-      @outputter ||= Outputter.new
+      @outputter ||= args.html ? HtmlOutputter.new : Outputter.new
     end
 
     def git_repository
@@ -105,6 +105,11 @@ module GitLabBuildOutput
       opts.on('-l', '--[no-]loop', 'Loop until the job is complete') do |value|
         args.loop = value
       end
+
+      opts.on('--[no-]html', 'Output the trace with ANSI escape code ' \
+        'converted to HTML') do |value|
+          args.html = value
+        end
 
       opts.on('-v', '--[no-]verbose', 'Show verbose output') do |value|
         args.verbose = value

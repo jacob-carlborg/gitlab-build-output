@@ -1,3 +1,8 @@
+AllCops:
+  Exclude:
+    - lib/gitlab_build_output/core_ext/**/*
+    - lib/gitlab_build_output/ansi2html.rb
+
 Style/Documentation:
   Enabled: false
 
