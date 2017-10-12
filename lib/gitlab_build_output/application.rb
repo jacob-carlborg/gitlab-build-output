@@ -1,5 +1,4 @@
 module GitLabBuildOutput
-  # rubocop:disable Metrics/ClassLength
   class Application
     attr_reader :raw_args
     attr_reader :args
@@ -16,7 +15,6 @@ module GitLabBuildOutput
       new(ARGV).run
     end
 
-    # rubocop:disable Metrics/AbcSize
     def run
       parse_verbose_argument(raw_args, args)
       handle_errors do
@@ -26,7 +24,6 @@ module GitLabBuildOutput
         outputter.run
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -61,8 +58,8 @@ module GitLabBuildOutput
       exit 1
     end
 
-    def verbose_error_handler(&block)
-      block.call
+    def verbose_error_handler
+      yield
     end
 
     def valid_formats_description
@@ -134,5 +131,4 @@ module GitLabBuildOutput
       puts option_parser.to_s
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end

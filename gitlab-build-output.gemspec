@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'git', '~> 1.3'
   spec.add_dependency 'gitlab', '~> 4.0'
   spec.add_dependency 'git_clone_url', '~> 2.0'
 
@@ -38,4 +39,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '0.48.1'
+  spec.add_development_dependency 'pry', '~> 0.11'
+  # spec.add_development_dependency 'pry-byebug', '~> 3.5'
+  spec.add_development_dependency 'pry-rescue', '~> 1.4'
+  spec.add_development_dependency 'pry-stack_explorer', '~> 0.4.9'
 end

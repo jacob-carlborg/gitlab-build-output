@@ -1,5 +1,7 @@
 require 'bundler/setup'
-require 'gitlab/build/output'
+require 'pry'
+
+require 'gitlab_build_output'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
