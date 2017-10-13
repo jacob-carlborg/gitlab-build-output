@@ -37,7 +37,7 @@ module GitLabBuildOutput
 
     def job_tracer
       @job_tracer ||= JobTracer.new(
-        args.endpoint, args.private_token, git_repository
+        args.private_token, git_repository, args.endpoint
       )
     end
 
