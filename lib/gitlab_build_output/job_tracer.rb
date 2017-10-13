@@ -14,6 +14,19 @@ module GitLabBuildOutput
       [trace, last_job.status]
     end
 
+    def last_job
+      gitlab
+        .commit_builds(project_name, last_commit, per_page: 10, page: 1)
+        .detect do |e|
+          e.status != GitLabApi::Status::CREATED &&
+            e.status != GitLabApi::Status::MANUAL
+        end
+    end
+
+    def last_commit
+      @last_commit ||= git.log[0].sha
+    end
+
     private
 
     attr_reader :git
@@ -37,10 +50,6 @@ module GitLabBuildOutput
       @scheme ||= https ? 'https' : 'http'
     end
 
-    def last_commit
-      @last_commit ||= git.log[0].sha
-    end
-
     def project_name
       @project_name ||= begin
         path = parsed_url.path.gsub(/\A\/+/, '')
@@ -54,15 +63,6 @@ module GitLabBuildOutput
 
     def parsed_url
       @parsed_url ||= GitCloneUrl.parse(git_url)
-    end
-
-    def last_job
-      gitlab
-        .commit_builds(project_name, last_commit, per_page: 10, page: 1)
-        .detect do |e|
-          e.status != GitLabApi::Status::CREATED &&
-            e.status != GitLabApi::Status::MANUAL
-        end
     end
 
     def job_trace(job_id)

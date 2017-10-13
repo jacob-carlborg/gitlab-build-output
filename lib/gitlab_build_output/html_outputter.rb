@@ -5,7 +5,7 @@ module GitLabBuildOutput
     end
 
     def ansi_to_html(string)
-      Ansi2html.convert(StringIO.new(string))
+      Ansi2html.convert(StringIO.new(string)).html
     end
   end
 end
