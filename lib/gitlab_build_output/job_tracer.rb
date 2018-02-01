@@ -19,7 +19,8 @@ module GitLabBuildOutput
         .commit_builds(project_name, last_commit, per_page: 10, page: 1)
         .detect do |e|
           e.status != GitLabApi::Status::CREATED &&
-            e.status != GitLabApi::Status::MANUAL
+            e.status != GitLabApi::Status::MANUAL &&
+            e.status != GitLabApi::Status::SKIPPED
         end
     end
 
