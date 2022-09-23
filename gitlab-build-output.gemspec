@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'git', '~> 1.3'
   spec.add_dependency 'gitlab', '~> 4.0'
   spec.add_dependency 'git_clone_url', '~> 2.0'
+  spec.add_dependency 'octokit', '~> 5.6'
 
   spec.add_development_dependency 'bundler', '~> 2.1'
   spec.add_development_dependency 'rake', '~> 10.0'

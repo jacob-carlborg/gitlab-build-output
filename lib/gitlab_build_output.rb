@@ -9,6 +9,7 @@ require 'git'
 require 'gitlab'
 require 'git_clone_url'
 require 'httparty'
+require 'octokit'
 
 require 'gitlab_build_output/core_ext'
 
