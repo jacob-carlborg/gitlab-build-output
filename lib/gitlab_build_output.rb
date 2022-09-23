@@ -1,6 +1,7 @@
 require 'base64'
 require 'erb'
 require 'json'
+require 'optparse'
 require 'ostruct'
 require 'pathname'
 require 'set'
