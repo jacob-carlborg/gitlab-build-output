@@ -3,6 +3,7 @@ require 'erb'
 require 'json'
 require 'ostruct'
 require 'pathname'
+require 'set'
 require 'stringio'
 require 'strscan'
 
@@ -22,6 +23,12 @@ require 'gitlab_build_output/job_tracer'
 require 'gitlab_build_output/outputter'
 require 'gitlab_build_output/tracer'
 require 'gitlab_build_output/version'
+
+require 'gitlab_build_output/ci_service/base'
+require 'gitlab_build_output/ci_service/unrecognized_error'
+
+require 'gitlab_build_output/ci_service/github_actions'
+require 'gitlab_build_output/ci_service/gitlab'
 
 # the order of these are important
 require 'gitlab_build_output/single_runner'
