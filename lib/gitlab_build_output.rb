@@ -2,6 +2,7 @@ require 'base64'
 require 'erb'
 require 'json'
 require 'ostruct'
+require 'pathname'
 require 'stringio'
 require 'strscan'
 
@@ -27,4 +28,7 @@ require 'gitlab_build_output/single_runner'
 require 'gitlab_build_output/loop_runner'
 
 module GitLabBuildOutput
+  def self.root
+    @root ||= Pathname.new(File.dirname(__FILE__)).join('..')
+  end
 end
