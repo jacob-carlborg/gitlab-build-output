@@ -10,7 +10,10 @@ describe GitLabBuildOutput::CiService::Base do
   end
 
   describe '.from' do
-    subject(:from) { described_class.from(repository) }
+    subject(:from) do
+      described_class.from(repository: repository, private_token: nil)
+    end
+
     let(:repository) { nil }
 
     context 'when the repository has a GitHub Actions configuration' do
